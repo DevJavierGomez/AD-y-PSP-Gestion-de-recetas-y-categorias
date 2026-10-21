@@ -1,5 +1,7 @@
 package com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.Controller;
 
+import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.DTO.Ingrediente.AnadirIngredienteRequestDTO;
+import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.DTO.Receta.RecetaResponseDTO;
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.Services.RecetaService;
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.models.Receta;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +48,17 @@ public class RecetaController {
     public ResponseEntity<Void> deleteReceta(@PathVariable Long id) {
         recetaService.deleteReceta(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{recetaId}/ingredientes")
+    public ResponseEntity<Receta> anadirIngrediente( @PathVariable Long recetaId,
+            @RequestBody AnadirIngredienteRequestDTO dto) {
+
+        Receta recetaActualizada = recetaService.addIngrediente(recetaId, dto.ingredienteId());
+
+        RecetaResponseDTO respuesta = RecetaResponseDTO.of(recetaActualizada);
+
+        return ResponseEntity.ok(recetaActualizada);
     }
 
 }

@@ -1,8 +1,10 @@
 package com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.Services;
 
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.Repository.CategoriaRepository;
+import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.Repository.IngredienteRepository;
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.Repository.RecetaRepository;
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.models.Categoria;
+import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.models.Ingrediente;
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.models.Receta;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ public class RecetaService {
 
     private final RecetaRepository recetaRepository;
     private final CategoriaRepository categoriaRepository;
+    private final IngredienteRepository ingredienteRepository;
 
     public Receta addReceta(Receta receta, Long categoriaId) {
         Categoria categoria = categoriaRepository.findById(categoriaId)
@@ -66,6 +69,18 @@ public class RecetaService {
 
         recetaRepository.deleteById(id);
 
+    }
+
+    public Receta addIngrediente(Long recetaId, Long ingredienteId) {
+        Receta receta = recetaRepository.findById(recetaId)
+                .orElseThrow(() -> new RuntimeException("Receta no encontrada con el ID: " + recetaId));
+
+        Ingrediente ingrediente = ingredienteRepository.findById(ingredienteId)
+                .orElseThrow(() -> new RuntimeException("Ingrediente no encontrado con el ID: " + ingredienteId));
+
+        receta.getIngredientes().add(ingrediente);
+
+        return recetaRepository.save(receta);
     }
 
 }
