@@ -4,6 +4,7 @@ import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.DTO.Categoria
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.DTO.Categoria.CategoriaResponseDTO;
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.Services.CategoriaService;
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.models.Categoria;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class CategoriaController {
     private final CategoriaService categoriaService;
 
     @PostMapping
-    public ResponseEntity<CategoriaResponseDTO> addCategoria(@RequestBody CategoriaRequestDTO dto) {
+    public ResponseEntity<CategoriaResponseDTO> addCategoria(@Valid @RequestBody CategoriaRequestDTO dto) {
         Categoria categoria = new Categoria();
         categoria.setNombre(dto.nombre());
         categoria.setDescripcion(dto.descripcion());
