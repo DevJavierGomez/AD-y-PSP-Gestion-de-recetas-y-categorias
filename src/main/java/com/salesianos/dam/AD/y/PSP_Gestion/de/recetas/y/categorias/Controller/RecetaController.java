@@ -4,6 +4,7 @@ import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.DTO.Ingredien
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.DTO.Receta.RecetaResponseDTO;
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.Services.RecetaService;
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.models.Receta;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class RecetaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Receta> updateReceta( @PathVariable Long id, @RequestBody Receta receta,
+    public ResponseEntity<Receta> updateReceta( @PathVariable Long id, @Valid @RequestBody Receta receta,
             @RequestParam Long categoriaId) {
 
         Receta recetaActualizada = recetaService.updateReceta(id, receta, categoriaId);
@@ -51,7 +52,7 @@ public class RecetaController {
     }
 
     @PostMapping("/{recetaId}/ingredientes")
-    public ResponseEntity<Receta> anadirIngrediente( @PathVariable Long recetaId,
+    public ResponseEntity<Receta> anadirIngrediente( @Valid @PathVariable Long recetaId,
             @RequestBody AnadirIngredienteRequestDTO dto) {
 
         Receta recetaActualizada = recetaService.addIngrediente(recetaId, dto.ingredienteId());
