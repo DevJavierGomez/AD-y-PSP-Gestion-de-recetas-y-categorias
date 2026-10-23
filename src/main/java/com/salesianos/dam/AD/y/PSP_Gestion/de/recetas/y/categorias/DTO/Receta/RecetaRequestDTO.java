@@ -1,9 +1,15 @@
 package com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.DTO.Receta;
 
 import com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.models.Dificultad;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+@Schema(
+        name = "RecetaRequestDTO",
+        description = "Datos requeridos para registrar nueva receta"
+)
 
 public record RecetaRequestDTO(
         @NotBlank(message = "El nombre de la receta no puede estar vacío")
