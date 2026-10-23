@@ -1,0 +1,7 @@
+package com.salesianos.dam.AD.y.PSP_Gestion.de.recetas.y.categorias.error;
+
+public class RecetaNoEncontradaException extends RuntimeException {
+    public RecetaNoEncontradaException(String message) {
+        super(message);
+    }
+}
